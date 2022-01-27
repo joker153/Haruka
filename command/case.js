@@ -1,72 +1,63 @@
-/**
-	@ No Re Upload, recode sendiri base nya klo mau 😏
-	@ Sc no enc silahkan cek https://github.com/DikaArdnt/alpha-Morou
- 
-	 「 TqTo 」
-	@ My God
-	@ My Parents
-	@ Fatih A.
-	@ Ferdi
-	@ DikaArdnt [author]
-	@ Mhankbarbar
-	@ Nurutomo
-	@ Rashid
-	@ ZeeoneOfc
-	@ Penyedia Module
-	@ And All Support
-**/
+/*
+# Haruka - UserBot
+# Copyright (C) 2021 Haruka-Bot Created By ZeeoneOfc
+#
+# This file is a part of < https://github.com/zeeoneofc/Haruka/ >
+# PLease read the GNU Affero General Public License in
+# <https://www.github.com/zeeoneofc/Haruka/blob/v1/LICENSE/>.
+*/ 
 
-
-require('./confat')
-const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
-const fs = require('fs')
-const util = require('util')
+// WhatsApp api
+const
+	{
+		WAConnection ,
+		MessageType,
+		Presence,
+		MessageOptions,
+		Mimetype,
+		WALocationMessage,
+		WA_MESSAGE_STUB_TYPES,
+		WA_DEFAULT_EPHEMERAL,
+		WAMessageProto,
+		ReconnectMode,
+		ProxyAgent,
+		GroupSettingChange,
+		waChatKey,
+		relayWAMessage,
+		mentionedJid,
+		processTime
+	} = require("@adiwajshing/baileys")
+	
+//module exports
+const axios = require("axios")
 const chalk = require('chalk')
-const { exec, spawn, execSync } = require("child_process")
-const axios = require('axios')
-const cheerio = require('cheerio')
-const { fromBuffer } = require('file-type')
-const path = require('path')
-const os = require('os')
-const fetch = require('node-fetch')
-const ffmpeg = require('fluent-ffmpeg')
+const { exec, spawn, execSync } = require("child_process")  
+const crypto = require('crypto')
+const { EmojiAPI } = require("emoji-api");
+const emoji = new EmojiAPI()
+const fetch = require('node-fetch');
+const ffmpeg = require('fluent-ffmpeg') 
+const figlet = require('figlet')
+const fs = require('fs')
+const gis = require('g-i-s')
+const hx = require('hxz-api')
+const ms = require('parse-ms')
+const moment = require('moment-timezone')
+const request = require('request')
 const speed = require('performance-now')
-const moment = require("moment-timezone");
-const xfar = require('xfarr-api');
-const ameClient = require("amethyste-api")
-const ameApi = new ameClient("1f486b04b157f12adf0b1fe0bd83c92a28ce768683871d2a390e25614150d0c8fa404fd01b82a5ebf5b82cbfa22e365e611c8501225a93d5d1e87f9f420eb91b")
-const hx = require('hxz-api');
-const ytdl = require('ytdl-core');
-const yts = require('yt-search');
-const { performance } = require('perf_hooks')
+const util = require('util')
+const xa = require('xfarr-api')
+const yts = require( 'yt-search')
+const ytdl = require("ytdl-core")
 const zee = require('api-alphabot')
 
-const { yta, ytv, ytvd, ytvf, servers } = require('./lib/y2mate')
-const { pinterest, wallpaper, wikimedia, hentai, quotesAnime , igstalk} = require('./lib/scraper')
-const {bytesToSize,  UploadFileUgu, webp2mp4File, TelegraPh } = require('./lib/uploader')
-const { smsg, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom } = require('./lib/myfunc')
-const database = require('./database.json')
-const setting = JSON.parse(fs.readFileSync('./setting.json'));
-let {
-    ownername,
-    ownernomer,
-    ownernomerr,
-    myweb,
-    thumbnail,
-    youtube,
-    github, 
-    botname,
-    donasi
-} = setting
-
-pp_bot = fs.readFileSync(thumbnail)
-qris = fs.readFileSync(donasi)
-// language
-const  { ind } = require(`./language`)
-lang = ind //language
-enter = '\n'
-typemenu = 'templateLocation'
-moment.tz.setDefault("Asia/Jakarta").locale("id");
+//library
+const { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('../lib/functions')
+const { fetchJson, kyun, fetchText } = require('../lib/fetcher')
+const { color, bgcolor } = require('../lib/color')
+const { yta, ytv} = require('../lib/y2mate')
+const simple = require('../lib/simple')
+const { uploadImages } = require('../lib/uploadimage')
 
 module.exports = alpha = async (alpha, m, chatUpdate) => {
     try {
@@ -100,8 +91,8 @@ module.exports = alpha = async (alpha, m, chatUpdate) => {
         const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : ''
 		const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false
         const isGroupAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false
-      //  const groupOwner = m.isGroup ? groupMetadata.owner : ''
-     //   const isGroupOwner = m.isGroup ? groupOwner.includes(m.sender) : false
+        //const groupOwner = m.isGroup ? groupMetadata.owner : ''
+        //const isGroupOwner = m.isGroup ? groupOwner.includes(m.sender) : false
         const mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
 
 		const ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net", "remoteJid": "6289523258649-1604595598@g.us"}, "message": {orderMessage: {itemCount: 2021,status: 200, thumbnail: fs.readFileSync(setting.thumbnail), surface: 200, message: `© ${ownername}`, orderTitle: 'FATIHmek', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
